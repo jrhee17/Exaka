@@ -3,6 +3,7 @@ require_relative 'boot'
 #require 'rails/all'
 
 require "rails"
+require "action_cable"
 
 %w(
   action_controller
