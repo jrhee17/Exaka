@@ -4,6 +4,7 @@ require_relative 'boot'
 
 require "rails"
 require "action_cable"
+require "active_record"
 
 %w(
   action_controller
