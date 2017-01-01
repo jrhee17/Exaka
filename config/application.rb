@@ -2,6 +2,7 @@ require_relative 'boot'
 
 #require 'rails/all'
 
+require 'mongoid'
 require "rails"
 require "action_cable"
 require "active_record"
