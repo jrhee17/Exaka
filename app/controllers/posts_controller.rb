@@ -5,6 +5,7 @@ class PostsController < ApplicationController
   # GET /posts.json
   def index
     @posts = Post.all
+    @user = User.find(params[:user_id])
   end
 
   # GET /posts/1
@@ -14,7 +15,9 @@ class PostsController < ApplicationController
 
   # GET /posts/new
   def new
-    @post = Post.new
+    @user = User.find(params[:user_id])
+    @post = Post.new(:user=>@user)
+    p @user, @post
   end
 
   # GET /posts/1/edit
@@ -24,12 +27,17 @@ class PostsController < ApplicationController
   # POST /posts
   # POST /posts.json
   def create
+    @user = User.find(params[:user_id])
     @post = Post.new(post_params)
+    @post.user = @user
+    p @user, @post
+
 
     respond_to do |format|
       if @post.save
-        format.html { redirect_to @post, notice: 'Post was successfully created.' }
-        format.json { render :show, status: :created, location: @post }
+        p 'post saving: '
+        format.html { redirect_to user_path(@user), notice: 'Post was successfully created.' }
+        format.json { render :show, status: :created, location: user_path(@user) }
       else
         format.html { render :new }
         format.json { render json: @post.errors, status: :unprocessable_entity }
@@ -69,6 +77,6 @@ class PostsController < ApplicationController
 
     # Never trust parameters from the scary internet, only allow the white list through.
     def post_params
-      params.fetch(:post, {})
+      params.require(:post).permit(:title, :body, :user)
     end
 end

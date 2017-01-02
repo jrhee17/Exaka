@@ -1,4 +1,20 @@
 <p id="notice"><%= notice %></p>
 
-<%= link_to 'Edit', edit_post_path(@post) %> |
-<%= link_to 'Back', posts_path %>
+<p>
+  <strong>Title:</strong>
+  <%= @post.title %>
+</p>
+
+<p>
+  <strong>Body:</strong>
+  <%= @post.body %>
+</p>
+
+<p>
+  <strong>User:</strong> <br/>
+  <%= @post.user.name %> </br>
+  <%= @post.user.email %>
+</p>
+
+<%= link_to 'Edit', edit_user_post_path(@post) %> |
+<%= link_to 'Back', user_path(@post.user) %>
