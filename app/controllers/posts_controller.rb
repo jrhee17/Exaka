@@ -1,11 +1,17 @@
 class PostsController < ApplicationController
   before_action :set_post, only: [:show, :edit, :update, :destroy]
 
+  skip_before_action :ensure_login, only: [:main, :show]
+
   # GET /posts
   # GET /posts.json
   def index
     @posts = Post.all
     @user = User.find(params[:user_id])
+  end
+
+  def main
+    @posts = Post.all
   end
 
   # GET /posts/1
@@ -48,9 +54,10 @@ class PostsController < ApplicationController
   # PATCH/PUT /posts/1
   # PATCH/PUT /posts/1.json
   def update
+    p '---------- posts_controller update ----------: ', @post
     respond_to do |format|
       if @post.update(post_params)
-        format.html { redirect_to @post, notice: 'Post was successfully updated.' }
+        format.html { redirect_to user_post_path(@post.user, @post), notice: 'Post was successfully updated.' }
         format.json { render :show, status: :ok, location: @post }
       else
         format.html { render :edit }

@@ -1,0 +1,33 @@
+<p id="notice"><%= notice %></p>
+
+<h1>Posts</h1>
+
+<table>
+  <thead>
+    <tr>
+      <th>Title</th>
+      <th>Body</th>
+      <th>User id</th>
+      <th>User name</th>
+      <th>User email</th>
+      <th colspan="3"></th>
+    </tr>
+  </thead>
+
+  <tbody>
+
+    <% @posts.each do |post| %>
+      <tr>
+        <td><%= post.title %></td>
+        <td><%= post.body %></td>
+        <td><%= post.user.id %></td>
+        <td><%= post.user.name %></td>
+        <td><%= post.user.email %></td>
+        <td><%= link_to 'Show', user_post_path(post.user, post) %></td>
+      </tr>
+    <% end %>
+  </tbody>
+</table>
+
+<br>
+
