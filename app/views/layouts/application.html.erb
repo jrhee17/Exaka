@@ -1,11 +1,11 @@
 <!DOCTYPE html>
-<html>
+<html ng-app="mainApp" ng-cloak>
   <head>
     <title>Exaka</title>
     <%= csrf_meta_tags %>
 
-    <%= stylesheet_link_tag    'application', media: 'all', 'data-turbolinks-track': 'reload' %>
-    <%= javascript_include_tag 'application', 'data-turbolinks-track': 'reload' %>
+    <%= stylesheet_link_tag    'application', media: 'all' %>
+    <%= javascript_include_tag 'application' %>
 
 
 	<nav class="navbar navbar-default">
@@ -39,7 +39,9 @@
 
   </head>
 
-  <body>
+  <body ng-controller="HelloController as ctrl">
+
+    {{ctrl.message}}
 
     <div style="float: right">
         <% if logged_in? %>

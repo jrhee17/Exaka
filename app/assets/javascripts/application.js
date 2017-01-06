@@ -12,5 +12,18 @@
 //
 //= require jquery
 //= require jquery_ujs
-//= require turbolinks
 //= require_tree .
+
+//= require angular
+
+angular.module('mainApp', []).
+    controller('HelloController', function() {
+        console.log('Hello');
+        this.message = 'Hello World!';
+    });
+
+    
+    function HelloController() {
+        console.log('Hello');
+        this.message = 'Hello World!';
+    }
