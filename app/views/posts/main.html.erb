@@ -21,7 +21,7 @@
         <td><%= post.user.id %></td>
         <td><%= post.user.name %></td>
         <td><%= post.user.email %></td>
-        <td><%= link_to 'Show', user_post_path(post.user, post) %></td>
+        <td><%= link_to 'Show', post_path(post) %></td>
       </tr>
     <% end %>
   </tbody>

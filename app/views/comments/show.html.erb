@@ -1,0 +1,17 @@
+<p>
+  <strong>Text:</strong>
+  <%= @comment.text %>
+</p>
+
+<p>
+  <strong>Createdate:</strong>
+  <%= @comment.createDate %>
+</p>
+
+<p>
+  <strong>Updatedate:</strong>
+  <%= @comment.updateDate %>
+</p>
+
+<%= link_to 'Edit', edit_post_comment_path(@comment) %> |
+<%= link_to 'Back', post_path(@comment.post) %>

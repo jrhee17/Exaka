@@ -5,7 +5,9 @@ Rails.application.routes.draw do
   resource :sessions, only: [:new, :create, :destroy]
 
   resources :users do
-      resources :posts
+  end
+  resources :posts do
+      resources :comments
   end
 
   get 'posts', to: 'posts#main'

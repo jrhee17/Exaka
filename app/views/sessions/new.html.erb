@@ -1,7 +1,5 @@
 <h1>Login</h1>
 
-<%= flash[:alert] %>
-
 <%= form_for(:user, url: sessions_path) do |f| %>
     <div class="field"><%= f.label :name %> <br/> <%= f.text_field :name %></div>
     <p/>
@@ -9,4 +7,4 @@
     <div class="actions"><%= f.submit "Login" %></div>
 <% end %>
 
-
+<%= link_to 'Sign up', new_user_path %>

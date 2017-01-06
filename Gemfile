@@ -5,7 +5,6 @@ git_source(:github) do |repo_name|
   "https://github.com/#{repo_name}.git"
 end
 
-
 # Bundle edge Rails instead: gem 'rails', github: 'rails/rails'
 gem 'rails', '~> 5.0.1'
 # Use sqlite3 as the database for Active Record
@@ -36,7 +35,10 @@ gem 'jbuilder', '~> 2.5'
 # gem 'capistrano-rails', group: :development
 
 gem 'bcrypt', '~> 3.1.7'
-gem 'mongoid', '~> 6.0.0'
+gem 'mongoid'
+gem 'mongo'
+gem "bson"
+gem "bson_ext"
 #gem 'sqlite3', :group => [:development, :test]
 #group :production do
 #  gem 'thin'

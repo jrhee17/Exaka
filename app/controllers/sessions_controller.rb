@@ -6,7 +6,7 @@ class SessionsController < ApplicationController
   end
 
   def create
-      user = User.find_by(name: params[:user][:name])
+      user = User.where(name: params[:user][:name]).first
       password = params[:user][:password]
 
       p 'sessions create: ', user
