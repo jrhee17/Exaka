@@ -1,6 +1,8 @@
 class User
   include Mongoid::Document
   include ActiveModel::SecurePassword
+  include Mongoid::Timestamps::Created
+  include Mongoid::Timestamps::Updated
   has_secure_password
   field :name, type: String
   field :email, type: String
