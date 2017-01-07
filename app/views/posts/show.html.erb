@@ -1,3 +1,4 @@
+
 <p>
   <strong>Title:</strong>
   <%= @post.title %>
@@ -15,7 +16,6 @@
 </p>
 
 <%= link_to 'Main', root_path %> |
-<%= link_to 'Add comment', new_post_comment_path(@post) %> |
 <% if logged_in? %>
     <%= link_to 'Edit', edit_post_path(@post) %> |
     <%= link_to 'Destroy', post_path(@post), method: :delete, data: { confirm: 'Are you sure?' } %>
@@ -29,7 +29,9 @@
     <% @post.comments.each do |comment| %>
         <li> 
             <%= comment.text %> <%= link_to 'Show', post_comment_path(@post, comment) %> <%= link_to 'Destroy', post_comment_path(@post, comment), method: :delete, data: {confirm: 'Are you sure?'} %>
-            <%= render 'edit_comment_form', {post: @post, comment: comment} %>
+            <generic-comment>
+                <%= render 'edit_comment_form', {post: @post, comment: comment} %>
+            </generic-comment>
         </li>
     <% end %>
   </ul>
