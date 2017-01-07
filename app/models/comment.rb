@@ -10,4 +10,7 @@ class Comment
 
   validates_associated :post
   validates_associated :user
+
+  validates :user, :post, :text, presence: true
+  validates :text, length: { in: 15..1024 }
 end

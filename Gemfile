@@ -5,6 +5,7 @@ git_source(:github) do |repo_name|
   "https://github.com/#{repo_name}.git"
 end
 
+gem 'validates_email_format_of'
 gem "will_paginate_mongoid"
 gem 'will_paginate', '~> 3.1.0'
 gem 'angularjs-rails-resource', '~> 2.0.0'
