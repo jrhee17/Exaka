@@ -1,17 +1,17 @@
 class PostsController < ApplicationController
   before_action :set_post, only: [:show, :edit, :update, :destroy]
 
-  skip_before_action :ensure_login, only: [:main, :show]
+  skip_before_action :ensure_login, only: [:index, :main, :show]
 
   # GET /posts
   # GET /posts.json
   def index
-    @posts = Post.all
-    @user = User.find(params[:user_id])
+      p 'index params', params
+    @posts = Post.search(params[:search], params[:page])
   end
 
   def main
-    @posts = Post.order_by(:created_at=>'desc')
+    @posts = Post.order_by(:created_at=>-1).limit(20)
   end
 
   # GET /posts/1
@@ -52,7 +52,6 @@ class PostsController < ApplicationController
   # PATCH/PUT /posts/1
   # PATCH/PUT /posts/1.json
   def update
-    p '---------- posts_controller update ----------: ', @post
     respond_to do |format|
       if @post.update(post_params)
         format.html { redirect_to post_path(@post), notice: 'Post was successfully updated.' }

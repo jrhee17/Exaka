@@ -5,6 +5,9 @@ class SessionsController < ApplicationController
   def new
   end
 
+  def auth_req
+  end
+
   def create
       user = User.where(name: params[:user][:name]).first
       password = params[:user][:password]

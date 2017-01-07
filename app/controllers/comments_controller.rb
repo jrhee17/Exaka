@@ -1,5 +1,6 @@
 class CommentsController < ApplicationController
   before_action :set_comment, only: [:show, :edit, :update, :destroy]
+  before_action :set_post, only: [:create]
 
   # GET /comments
   # GET /comments.json
@@ -27,7 +28,7 @@ class CommentsController < ApplicationController
   # POST /comments.json
   def create
     @comment = Comment.new(comment_params)
-    @comment.post = Post.find(params[:post_id])
+    @comment.post = @post
     @comment.user = current_user
 
     respond_to do |format|
@@ -72,8 +73,13 @@ class CommentsController < ApplicationController
       @comment = Comment.find(params[:id])
     end
 
+    def set_post
+      @post = Post.find(params[:post_id])
+    end
+
     # Never trust parameters from the scary internet, only allow the white list through.
     def comment_params
       params.require(:comment).permit(:user, :text, :post, :createDate, :updateDate)
     end
+
 end

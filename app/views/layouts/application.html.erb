@@ -42,11 +42,8 @@
   <body>
 
     <div style="float: right">
-        <% if logged_in? %>
-            <%= link_to "New post",  new_post_path(current_user) %>
-        <% else %>
-            <%= link_to "New post",  login_path %>
-        <% end %>
+        <%= link_to 'Posts', posts_path %>
+        <%= link_to "New post",  new_post_path %>
     </div>
 
     <% flash.each do |key, value| %>

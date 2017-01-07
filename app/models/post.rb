@@ -6,4 +6,13 @@ class Post
   field :body, type: String
   belongs_to :user
   has_many :comments, dependent: :destroy
+
+  validates_associated :user
+
+  def self.search(search, page)
+      p 'self.search'
+      result = self.where(title: /#{search}/i).order_by(:created_at=>-1).paginate(:per_page => 10, :page => page)
+      p 'result', result
+      return result
+  end
 end
