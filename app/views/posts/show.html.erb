@@ -1,3 +1,8 @@
+<p>
+  <strong>User:</strong>
+  <%= @post.user.name %> <br/>
+</p>
+
 
 <p>
   <strong>Title:</strong>
@@ -9,29 +14,33 @@
   <%= @post.body %>
 </p>
 
-<p>
-  <strong>User:</strong> <br/>
-  <%= @post.user.name %> <br/>
-  <%= @post.user.email %>
-</p>
-
 <%= link_to 'Main', root_path %> |
 <% if logged_in? %>
     <%= link_to 'Edit', edit_post_path(@post) %> |
     <%= link_to 'Destroy', post_path(@post), method: :delete, data: { confirm: 'Are you sure?' } %>
 <% end %>
 
-<%= render 'new_comment_form', {post: @post, comment: @comment} %>
-
 <p>
   <strong>Comments:</strong> <br/>
   <ul>
-    <% @post.comments.each do |comment| %>
+    <li>
+      <% if logged_in? %>
+        <generic-comment title="Add Comment">
+            <%= render 'new_comment_form', {post: @post, comment: @comment} %>
+        </generic-comment>
+      <% else %>
+          <%= link_to 'Login ', login_path %>to add comment
+      <% end %>
+    </li>
+    <% @post.comments.order_by(:created_at=>'desc').each do |comment| %>
         <li> 
-            <%= comment.text %> <%= link_to 'Show', post_comment_path(@post, comment) %> <%= link_to 'Destroy', post_comment_path(@post, comment), method: :delete, data: {confirm: 'Are you sure?'} %>
-            <generic-comment>
-                <%= render 'edit_comment_form', {post: @post, comment: comment} %>
-            </generic-comment>
+            <%= comment.text %> <%= comment.created_at %> 
+            <% if current_user == comment.user %>
+                <%= link_to 'Destroy', post_comment_path(@post, comment), method: :delete, data: {confirm: 'Are you sure?'} %>
+                <generic-comment title="Edit">
+                    <%= render 'edit_comment_form', {post: @post, comment: comment} %>
+                </generic-comment>
+            <% end %>
         </li>
     <% end %>
   </ul>

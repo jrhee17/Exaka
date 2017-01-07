@@ -16,30 +16,5 @@
 //= require angular
 //= require angular-rails-templates
 //= require_tree ./templates
+//
 
-angular.module('mainApp', ['templates']).
-    controller('HelloController', HelloController).
-    directive('genericComment', function() {
-        return {
-            restrict: 'E',
-            scope: {
-                text: '@',
-            },
-            transclude: true,
-            templateUrl: 'genericComment.html',
-            controller: ['$scope', function($scope) {
-                console.log('genericComment controller');
-                $scope.showEdit = false;
-                $scope.clicked = function() {
-                    console.log('$scope.clicked()');
-                    $scope.showEdit = !$scope.showEdit;
-                };
-            }]
-        };
-    });
-
-    
-    function HelloController() {
-        console.log('Hello');
-        this.message = 'Hello World!';
-    }

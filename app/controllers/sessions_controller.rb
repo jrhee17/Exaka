@@ -9,13 +9,10 @@ class SessionsController < ApplicationController
       user = User.where(name: params[:user][:name]).first
       password = params[:user][:password]
 
-      p 'sessions create: ', user
       if user && user.authenticate(password)
-          p 'authenticated'
           session[:user_id] = user.id
-          redirect_to root_path, notice: "Logged in successfully"
+          redirect_to referer_path, notice: "Logged in successfully"
       else
-          p 'not authenticated'
           redirect_to login_path, alert: "Invalid username/password combination"
       end
   end

@@ -6,14 +6,21 @@ class ApplicationController < ActionController::Base
 
   protected
     def ensure_login
-        redirect_to login_path unless session[:user_id]
+        if not session[:user_id]
+            session[:referer] = URI(request.referer).path
+            redirect_to login_path
+        end
+    end
+    def referer_path
+        session[:referer] = root_path if !session[:referer] or [login_path, new_user_path].include?(session[:referer]) 
+        session[:referer]
     end
     def logged_in?
         session[:user_id]
     end
     def current_user
 		begin
-			@current_user ||= User.find(session[:user_id])
+			@current_user ||= User.find(session[:user_id]) unless not session[:user_id]
         rescue Mongoid::Errors::DocumentNotFound
             session[:user_id] = nil
             redirect_to root_path

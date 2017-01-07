@@ -11,7 +11,7 @@ class PostsController < ApplicationController
   end
 
   def main
-    @posts = Post.all
+    @posts = Post.order_by(:created_at=>'desc')
   end
 
   # GET /posts/1
