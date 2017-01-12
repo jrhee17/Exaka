@@ -1,7 +1,7 @@
 class PostsController < ApplicationController
   before_action :set_post, only: [:show, :edit, :update, :destroy]
 
-  skip_before_action :ensure_login, only: [:index, :main, :show]
+  skip_before_action :authenticate_user!, only: [:index, :main, :show]
 
   # GET /posts
   # GET /posts.json
@@ -32,11 +32,10 @@ class PostsController < ApplicationController
   # POST /posts
   # POST /posts.json
   def create
-    @user = User.find(session[:user_id])
+    @user = current_user
     @post = Post.new(post_params)
     @post.user = @user
-    p @user, @post
-
+    p 'User: ', @user
 
     respond_to do |format|
       if @post.save

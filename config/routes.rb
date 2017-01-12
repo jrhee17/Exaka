@@ -1,9 +1,13 @@
 Rails.application.routes.draw do
-  get '/login' => "sessions#new", as: "login"
-  get '/auth_req' => "sessions#auth_req", as: "auth_req"
-  delete '/logout'=> "sessions#destroy", as: "logout"
+#  devise_for :users
+#  get '/login' => "sessions#new", as: "login"
+#  get '/auth_req' => "sessions#auth_req", as: "auth_req"
+#  delete '/logout'=> "sessions#destroy", as: "logout"
 
-  resource :sessions, only: [:new, :create, :destroy]
+   devise_for :users, controllers: {
+     sessions: 'users/sessions'
+   }
+#  resource :sessions, only: [:new, :create, :destroy]
 
   resources :users do
   end

@@ -7,9 +7,7 @@ class Post
   belongs_to :user
   has_many :comments, dependent: :destroy
 
-  validates_associated :user
-
-  validates :title, :body, :presence=> true
+  validates :title, :body, :user, :presence=> true
   validates :title, length: {:in => 15..150 }
   validates :body, length: {:in => 30..30000 }
 

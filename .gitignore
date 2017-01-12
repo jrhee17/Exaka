@@ -18,3 +18,6 @@
 
 # Ignore swap files
 *.swp
+
+_exaka.pem
+ssl/
