@@ -3,6 +3,8 @@ class PostsController < ApplicationController
 
   skip_before_action :authenticate_user!, only: [:index, :main, :show]
 
+  before_action :check_for_mobile
+
   # GET /posts
   # GET /posts.json
   def index

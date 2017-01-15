@@ -15,6 +15,7 @@
 
 //= require angular
 //= require angular-rails-templates
+//= require ./templates/myApp.js
 //= require_tree ./templates
 //
 

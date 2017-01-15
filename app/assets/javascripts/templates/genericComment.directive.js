@@ -1,5 +1,4 @@
-
-angular.module('myApp', ['templates']).directive('genericComment', function() {
+angular.module('myApp').directive('genericComment', function() {
     return {
         restrict: 'E',
         scope: {
