@@ -45,7 +45,12 @@ GEM
     angularjs-rails (1.6.1)
     angularjs-rails-resource (2.0.0)
     arel (7.1.4)
+    autoprefixer-rails (6.6.1)
+      execjs
     bcrypt (3.1.11)
+    bootstrap-sass (3.3.7)
+      autoprefixer-rails (>= 5.2.1)
+      sass (>= 3.3.4)
     bson (4.2.1)
     bson_ext (1.5.1)
     builder (3.2.2)
@@ -188,6 +193,7 @@ DEPENDENCIES
   angularjs-rails
   angularjs-rails-resource (~> 2.0.0)
   bcrypt (~> 3.1.7)
+  bootstrap-sass
   bson
   bson_ext
   byebug
@@ -212,4 +218,4 @@ DEPENDENCIES
   will_paginate_mongoid
 
 BUNDLED WITH
-   1.13.5
+   1.13.7

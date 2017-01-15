@@ -1,6 +1,7 @@
 class ApplicationController < ActionController::Base
   protect_from_forgery with: :exception
 
+  before_action :check_for_mobile
   before_action :authenticate_user!
   before_action :configure_permitted_parameters, if: :devise_controller?
 
@@ -17,7 +18,6 @@ class ApplicationController < ActionController::Base
   def check_for_mobile
     session[:mobile_override] = params[:mobile] if params[:mobile]
     prepare_for_mobile if mobile_device?
-    print 'mobile_device?: ', mobile_device?
   end
 
   def mobile_device?
@@ -29,7 +29,7 @@ class ApplicationController < ActionController::Base
   end
 
   def prepare_for_mobile
-    prepend_view_path Rails.root + 'app' + 'views_mobile'
+    request.format = :mobile if mobile_device?
   end
 
   helper_method :mobile_device?

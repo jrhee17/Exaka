@@ -22,3 +22,7 @@ Things you may want to cover:
 * Deployment instructions
 
 * ...
+
+# Generate mobile views for directory app/views recursively
+
+./generateMobileViews.sh
