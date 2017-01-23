@@ -16,9 +16,15 @@
     <%= f.text_field :title %>
   </div>
 
-  <div class="field">
-    <%= f.label :body %>
-    <%= f.text_field :body %>
+
+  <div ng-controller="editorCtrl" squeeze>
+    <div id="editor-wrapper" class="container">
+      <textarea id="editor" data-ng-model="text" elastic></textarea>
+      <div id="preview" sd-model-to-html="text"></div>
+    </div>
+    <div class="field">
+        <%= f.hidden_field :body, value: "{{text}}" %>
+    </div>
   </div>
 
   <div class="actions">

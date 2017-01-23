@@ -1,1 +1,3 @@
-angular.module('myApp', ['templates']);
+(function(){
+  angular.module('myApp', ['templates', 'showdown.editor']);
+})();

@@ -42,8 +42,6 @@ GEM
       railties (>= 4.2, < 6)
       sprockets (>= 3.0, < 5)
       tilt
-    angularjs-rails (1.6.1)
-    angularjs-rails-resource (2.0.0)
     arel (7.1.4)
     autoprefixer-rails (6.6.1)
       execjs
@@ -51,9 +49,10 @@ GEM
     bootstrap-sass (3.3.7)
       autoprefixer-rails (>= 5.2.1)
       sass (>= 3.3.4)
+    bower-rails (0.11.0)
     bson (4.2.1)
     bson_ext (1.5.1)
-    builder (3.2.2)
+    builder (3.2.3)
     byebug (9.0.6)
     coffee-rails (4.2.1)
       coffee-script (>= 2.2.0)
@@ -70,9 +69,10 @@ GEM
       railties (>= 4.1.0, < 5.1)
       responders
       warden (~> 1.2.3)
+    diff-lcs (1.3)
     erubis (2.7.0)
     execjs (2.7.0)
-    ffi (1.9.14)
+    ffi (1.9.17)
     globalid (0.3.7)
       activesupport (>= 4.1.0)
     i18n (0.7.0)
@@ -139,6 +139,27 @@ GEM
       ffi (>= 0.5.0)
     responders (2.3.0)
       railties (>= 4.2.0, < 5.1)
+    rspec (3.5.0)
+      rspec-core (~> 3.5.0)
+      rspec-expectations (~> 3.5.0)
+      rspec-mocks (~> 3.5.0)
+    rspec-core (3.5.4)
+      rspec-support (~> 3.5.0)
+    rspec-expectations (3.5.0)
+      diff-lcs (>= 1.2.0, < 2.0)
+      rspec-support (~> 3.5.0)
+    rspec-mocks (3.5.0)
+      diff-lcs (>= 1.2.0, < 2.0)
+      rspec-support (~> 3.5.0)
+    rspec-rails (3.5.2)
+      actionpack (>= 3.0)
+      activesupport (>= 3.0)
+      railties (>= 3.0)
+      rspec-core (~> 3.5.0)
+      rspec-expectations (~> 3.5.0)
+      rspec-mocks (~> 3.5.0)
+      rspec-support (~> 3.5.0)
+    rspec-support (3.5.0)
     sass (3.4.23)
     sass-rails (5.0.6)
       railties (>= 4.0.0, < 6)
@@ -146,7 +167,7 @@ GEM
       sprockets (>= 2.8, < 4.0)
       sprockets-rails (>= 2.0, < 4.0)
       tilt (>= 1.1, < 3)
-    spring (2.0.0)
+    spring (2.0.1)
       activesupport (>= 4.2)
     spring-watcher-listen (2.0.1)
       listen (>= 2.7, < 4.0)
@@ -190,10 +211,9 @@ PLATFORMS
 
 DEPENDENCIES
   angular-rails-templates
-  angularjs-rails
-  angularjs-rails-resource (~> 2.0.0)
   bcrypt (~> 3.1.7)
   bootstrap-sass
+  bower-rails (~> 0.11.0)
   bson
   bson_ext
   byebug
@@ -206,6 +226,8 @@ DEPENDENCIES
   mongoid
   puma (~> 3.0)
   rails (~> 5.0.1)
+  rspec
+  rspec-rails
   sass-rails (~> 5.0)
   spring
   spring-watcher-listen (~> 2.0.0)

@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html ng-app="myApp" ng-cloak>
+<html ng-cloak ng-app="myApp">
   <head>
     <title>Exaka</title>
     <%= csrf_meta_tags %>
@@ -7,6 +7,7 @@
     <%= stylesheet_link_tag    'application', media: 'all' %>
     <%= stylesheet_link_tag 'mobile' if mobile_device? %>
     <%= javascript_include_tag 'application' %>
+    <link rel="stylesheet" href="//cdn.rawgit.com/balpha/pagedown/master/demo/browser/demo.css" />
 
 
 	<nav class="navbar navbar-default">

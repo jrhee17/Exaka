@@ -14,9 +14,15 @@
 //= require jquery_ujs
 //= require bootstrap-sprockets
 
+//
+// Bower packages
+
 //= require angular
 //= require angular-rails-templates
+//= require showdown
+//= require angular-sanitize
+//= require angular-pageslide-directive
+//= require angular-animate
+//= require angular-cookies
 //= require ./templates/myApp.js
 //= require_tree ./templates
-//
-

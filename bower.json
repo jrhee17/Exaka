@@ -1,0 +1,24 @@
+{
+  "name": "Exaka",
+  "homepage": "https://github.com/jrhee17/Exaka",
+  "authors": [
+    "guins_j <guins_j@guins.org>"
+  ],
+  "description": "",
+  "main": "",
+  "license": "MIT",
+  "ignore": [
+    "**/.*",
+    "node_modules",
+    "bower_components",
+    "test",
+    "tests"
+  ],
+  "dependencies": {
+    "showdown": "1.6.0",
+    "angular-sanitize": "1.5.7",
+    "angular-pageslide-directive": "^2.1.4",
+    "angular-animate": "1.5.9",
+    "angular-cookies": "1.5.x"
+  }
+}

@@ -14,3 +14,15 @@
 
 @import "bootstrap-sprockets";
 @import "bootstrap";
+
+@import "editor";
+
+.wmd-button > span {
+    background-image: 
+      url('//cdn.rawgit.com/derobins/wmd/master/images/wmd-buttons.png');
+    background-repeat: no-repeat;
+    background-position: 0px 0px;
+    width: 20px;
+    height: 20px;
+    display: inline-block;
+}

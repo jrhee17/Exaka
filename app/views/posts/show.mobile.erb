@@ -1,3 +1,5 @@
+<div ng-app="myApp">
+
 <p>
   <strong>User:</strong>
   <%= @post.user.username %> <br/>
@@ -11,7 +13,11 @@
 
 <p>
   <strong>Body:</strong>
-  <%= @post.body %>
+  <div ng=controller="editorCtrl">
+    <div id="editor-wrapper" class="container">
+        <div id="preview" sd-model-to-html="<%= @post.body.to_json %>"></div>
+    </div>
+  </div>
 </p>
 
 <% if user_signed_in? and current_user == @post.user %>
@@ -44,4 +50,4 @@
     <% end %>
   </ul>
 </p>
-
+</div>
