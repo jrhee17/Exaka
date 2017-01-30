@@ -23,5 +23,8 @@
     "angular-bootstrap": "^2.4.0",
     "MathJax": "^2.7.0",
     "angular-file-upload": "^2.4.1"
+  },
+  "resolutions": {
+    "angular": "1.5.11"
   }
 }
