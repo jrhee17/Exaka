@@ -22,5 +22,8 @@
   "bugs": {
     "url": "https://github.com/jrhee17/Exaka/issues"
   },
-  "homepage": "https://github.com/jrhee17/Exaka#readme"
+  "homepage": "https://github.com/jrhee17/Exaka#readme",
+  "scripts": {
+          "postinstall": "./node_modules/bower/bin/bower install"
+            }
 }
