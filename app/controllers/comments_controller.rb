@@ -1,5 +1,5 @@
 class CommentsController < ApplicationController
-  before_action :set_comment, only: [:show, :edit, :update, :destroy]
+  before_action :set_comment, only: [:show, :edit, :update, :destroy, :upvote]
   before_action :set_post, only: [:create]
 
   # GET /comments
@@ -24,19 +24,34 @@ class CommentsController < ApplicationController
     p params
   end
 
+  def upvote
+    if @comment.voted_users.include? current_user then
+      @comment.voted_users.delete(current_user)
+      current_user.voted_comments.delete(@comment)
+    else
+      @comment.voted_users.push(current_user)
+      current_user.voted_comments.push(@comment)
+    end
+    @comment.save
+    current_user.save
+    redirect_to :back
+  end
+
   # POST /comments
   # POST /comments.json
   def create
     @comment = Comment.new(comment_params)
     @comment.post = @post
-    @comment.user = current_user
+    @comment.owner = current_user
 
     respond_to do |format|
       if @comment.save
         format.html { redirect_to post_path(@comment.post, @comment), notice: 'Comment was successfully created.' }
+        format.mobile { redirect_to post_path(@comment.post, @comment), notice: 'Comment was successfully created.' }
         format.json { render :show, status: :created, location: @comment }
       else
         format.html { render :new }
+        format.mobile { render :new }
         format.json { render json: @comment.errors, status: :unprocessable_entity }
       end
     end
@@ -48,9 +63,11 @@ class CommentsController < ApplicationController
     respond_to do |format|
       if @comment.update(comment_params)
         format.html { redirect_to post_path(@comment.post), notice: 'Comment was successfully updated.' }
+        format.mobile { redirect_to post_path(@comment.post), notice: 'Comment was successfully updated.' }
         format.json { render :show, status: :ok, location: @comment }
       else
         format.html { render :edit }
+        format.mobile { render :edit }
         format.json { render json: @comment.errors, status: :unprocessable_entity }
       end
     end
@@ -63,6 +80,7 @@ class CommentsController < ApplicationController
     @comment.destroy
     respond_to do |format|
       format.html { redirect_to post_path(@post), notice: 'Comment was successfully destroyed.' }
+      format.mobile { redirect_to post_path(@post), notice: 'Comment was successfully destroyed.' }
       format.json { head :no_content }
     end
   end

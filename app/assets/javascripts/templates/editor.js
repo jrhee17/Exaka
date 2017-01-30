@@ -8,7 +8,17 @@
     .directive('markdownToHtml', ['$showdown', '$sanitize', '$sce', markdownToHtmlDirective])
     .directive('cachePostText', ['$cookies', cachePostText])
     .filter('sdStripHtml', ['$showdown', stripHtmlFilter]) //<-- DEPRECATED: will be removed in the next major version release
-    .filter('stripHtml', ['$showdown', stripHtmlFilter]);
+    .filter('stripHtml', ['$showdown', stripHtmlFilter])
+    .service('postText', postText);
+
+  function postText () {
+    this.text = "";
+
+    this.appendText = function (temp) {
+        this.text += temp;
+        console.log('postText appendText(): ' + this.text);
+    }
+  };
   
   /**
    * Angular Provider

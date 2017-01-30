@@ -4,6 +4,7 @@
   <thead>
     <tr>
       <th>Title</th>
+      <th>Vote</th>
       <th>Body</th>
       <th>CreatedAt</th>
       <th>User name</th>
@@ -16,10 +17,11 @@
     <% @posts.each do |post| %>
       <tr>
         <td><%= link_to post.title, post_path(post) %></td>
+        <td><%= post.vote %></td>
         <td><%= post.body %></td>
         <td><%= post.created_at %></td>
-        <td><%= post.user.username %></td>
-        <td><%= post.user.email %></td>
+        <td><%= post.owner.username %></td>
+        <td><%= post.owner.email %></td>
       </tr>
     <% end %>
   </tbody>

@@ -11,21 +11,29 @@
     </div>
   <% end %>
 
+
   <div class="field">
     <%= f.label :title %>
     <%= f.text_field :title %>
   </div>
 
-
-  <div ng-controller="editorCtrl" squeeze>
-    <div id="editor-wrapper" class="container">
-      <textarea id="editor" data-ng-model="text" elastic></textarea>
-      <div id="preview" sd-model-to-html="text"></div>
-    </div>
-    <div class="field">
-        <%= f.hidden_field :body, value: "{{text}}" %>
+  <div>
+    <div ng-controller="editorCtrl" squeeze>
+      <div id="editor-wrapper" class="container">
+        <% if @post.persisted? %>
+          <textarea id="editor" data-ng-model="text" elastic ng-init="text = <%= @post.body.to_json %>"></textarea>
+        <% else %>
+          New post
+          <textarea id="editor" data-ng-model="text" elastic ng-change="cachePostInput()" cache-post-text></textarea>
+        <% end %>
+        <div id="preview" sd-model-to-html="text"></div>
+      </div>
+      <div class="field">
+          <%= f.hidden_field :body, value: "{{text}}" %>
+      </div>
     </div>
   </div>
+
 
   <div class="actions">
     <%= f.submit %>

@@ -13,9 +13,15 @@ Rails.application.routes.draw do
   end
   resources :posts do
       resources :comments
+      post 'upvote_comment/:id', to: 'comments#upvote', as: 'upvote_comment'
   end
 
   get 'posts', to: 'posts#main'
+
+  post 'upvote_post/:id', to: 'posts#upvote', as: 'upvote_post'
+  post 'posts/upload_image', to: 'upload_image#post', as: 'upload_image_post'
+  get 'uploads/image/postImage/:id/:filename', to: 'upload_image#get_image', as: 'get_image_post'
+
 
   root 'posts#main'
   # For details on the DSL available within this file, see http://guides.rubyonrails.org/routing.html

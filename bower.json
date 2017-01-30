@@ -1,5 +1,5 @@
 {
-  "name": "Exaka",
+  "name": "exaka",
   "homepage": "https://github.com/jrhee17/Exaka",
   "authors": [
     "guins_j <guins_j@guins.org>"
@@ -19,6 +19,9 @@
     "angular-sanitize": "1.5.7",
     "angular-pageslide-directive": "^2.1.4",
     "angular-animate": "1.5.9",
-    "angular-cookies": "1.5.x"
+    "angular-cookies": "1.5.x",
+    "angular-bootstrap": "^2.4.0",
+    "MathJax": "^2.7.0",
+    "angular-file-upload": "^2.4.1"
   }
 }

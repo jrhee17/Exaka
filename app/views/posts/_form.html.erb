@@ -1,3 +1,26 @@
+<div ng-controller="ModalDemoCtrl as $ctrl" class="modal-demo">
+    <script type="text/ng-template" id="myModalContent.html">
+        <div class="modal-header">
+          <h3 class="modal-title" id="modal-title">Upload Image</h3>
+        </div>
+<div  nv-file-drop="" uploader="uploader" filters="queueLimit, customFilter">
+        <div class="modal-body" id="modal-body" >
+	      <%= render 'upload_image_form' %>
+        </div>
+        <div class="modal-footer">
+            <div>
+              <button ng-if="uploader.queue.length > 0" type="button" class="btn btn-primary" ng-click="uploader.queue[0].upload()" ng-disabled="item.isReady || item.isUploading || item.isSuccess">
+                  Upload
+              </button>
+              <button class="btn btn-warning" type="button" ng-click="$ctrl.cancel()">Cancel</button>
+            </div>
+        </div>
+        </div>
+    </script>
+
+    Result: {{ postText.text }}
+    <button type="button" class="btn btn-default" ng-click="$ctrl.open()">Open me!</button>
+</div>
 <%= form_for post do |f| %>
   <% if post.errors.any? %>
     <div id="error_explanation">
@@ -21,15 +44,15 @@
     <div ng-controller="editorCtrl" squeeze>
       <div id="editor-wrapper" class="container">
         <% if @post.persisted? %>
-          <textarea id="editor" data-ng-model="text" elastic ng-init="text = <%= @post.body.to_json %>"></textarea>
+          <textarea id="editor" data-ng-model="postText.text" elastic="postText.text" ng-init="text = <%= @post.body.to_json %>"></textarea>
         <% else %>
           New post
-          <textarea id="editor" data-ng-model="text" elastic ng-change="cachePostInput()" cache-post-text></textarea>
+          <textarea id="editor" data-ng-model="postText.text" elastic="postText.text" ng-change="cachePostInput()" cache-post-text></textarea>
         <% end %>
-        <div id="preview" sd-model-to-html="text"></div>
+        <div id="preview" sd-model-to-html="postText.text"></div>
       </div>
       <div class="field">
-          <%= f.hidden_field :body, value: "{{text}}" %>
+          <%= f.hidden_field :body, value: "{{postText.text}}" %>
       </div>
     </div>
   </div>

@@ -1,3 +1,3 @@
 (function(){
-  angular.module('myApp', ['templates', 'showdown.editor']);
+  angular.module('myApp', ['templates', 'showdown.editor', 'angularFileUpload', 'ui.bootstrap']);
 })();

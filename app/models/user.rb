@@ -62,13 +62,17 @@ class User
   field :username, type: String
   #field :email, type: String
   #field :password, type: String
-  has_many :posts, dependent: :destroy
-  has_many :comments, dependent: :destroy
+  has_many :posts, :class_name=>"Post", :inverse_of=>:owner, dependent: :destroy
+  has_many :comments, :class_name=>"Comment", :inverse_of=>:owner, dependent: :destroy
+  has_many :post_images, :class_name=>"Image", :inverse_of=>:owner, dependent: :destroy
 
   #validates :name, :email, :password, :presence=> true
   validates :username, uniqueness: true, length: {:in=> 6..20}, :presence=>true
   #validates :email, uniqueness: true, email_format: { message: "doesn't look like an email address" }
   #validates_confirmation_of :password
+
+  has_and_belongs_to_many :voted_posts, :class_name=>"Post", :inverse_of=>:voted_users
+  has_and_belongs_to_many :voted_comments, :class_name=>"Comment", :inverse_of=>:voted_users
 
   PASSWORD_FORMAT = /\A
     (?=.{8,})          # Must contain 8 or more characters

@@ -1,5 +1,5 @@
 class PostsController < ApplicationController
-  before_action :set_post, only: [:show, :edit, :update, :destroy]
+  before_action :set_post, only: [:show, :edit, :update, :destroy, :upvote]
 
   skip_before_action :authenticate_user!, only: [:index, :main, :show]
 
@@ -30,20 +30,35 @@ class PostsController < ApplicationController
   def edit
   end
 
+  # GET /posts/1/edit
+  def upvote
+    if @post.voted_users.include? current_user then
+      @post.voted_users.delete(current_user)
+      current_user.voted_posts.delete(@post)
+    else
+      @post.voted_users.push(current_user)
+      current_user.voted_posts.push(@post)
+    end
+    @post.save
+    current_user.save
+    redirect_to :back
+  end
+
   # POST /posts
   # POST /posts.json
   def create
     @user = current_user
     @post = Post.new(post_params)
-    @post.user = @user
-    p 'User: ', @user
+    @post.owner = @user
 
     respond_to do |format|
       if @post.save
         format.html { redirect_to post_path(@post), notice: 'Post was successfully created.' }
+        format.mobile { redirect_to post_path(@post), notice: 'Post was successfully created.' }
         format.json { render :show, status: :created, location: user_path(@user) }
       else
         format.html { render :new }
+        format.mobile { render :new }
         format.json { render json: @post.errors, status: :unprocessable_entity }
       end
     end
@@ -55,9 +70,11 @@ class PostsController < ApplicationController
     respond_to do |format|
       if @post.update(post_params)
         format.html { redirect_to post_path(@post), notice: 'Post was successfully updated.' }
+        format.mobile { redirect_to post_path(@post), notice: 'Post was successfully updated.' }
         format.json { render :show, status: :ok, location: @post }
       else
         format.html { render :edit }
+        format.mobile { render :edit }
         format.json { render json: @post.errors, status: :unprocessable_entity }
       end
     end
@@ -69,6 +86,7 @@ class PostsController < ApplicationController
     @post.destroy
     respond_to do |format|
       format.html { redirect_to root_path, notice: 'Post was successfully destroyed.' }
+      format.mobile { redirect_to root_path, notice: 'Post was successfully destroyed.' }
       format.json { head :no_content }
     end
   end

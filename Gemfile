@@ -5,6 +5,11 @@ git_source(:github) do |repo_name|
   "https://github.com/#{repo_name}.git"
 end
 
+gem "mini_magick"
+gem 'carrierwave', '~> 0.9.0'
+gem 'carrierwave-mongoid', :require => 'carrierwave/mongoid'
+gem 'mongoid-grid_fs', github: 'ahoward/mongoid-grid_fs'
+gem 'jquery-ui-rails'
 gem "bower-rails", "~> 0.11.0"
 gem 'devise'
 gem 'validates_email_format_of'

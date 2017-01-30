@@ -20,28 +20,36 @@
     };
   }]);
   
-  app.directive('elastic', [
-      '$timeout',
-      function($timeout) {
+  app.directive('elastic', [function() {
           return {
               restrict: 'A',
-              link: function($scope, element) {
-                  $scope.initialHeight = $scope.initialHeight || element[0].style.height;
+              scope: {
+                ngModel: '='
+              },
+              link: function($scope, element, attrs) {
                   var resize = function() {
                       element[0].style.height = $scope.initialHeight;
                       element[0].style.height = "" + element[0].scrollHeight + "px";
                   };
-                  element.on("input change", resize);
-                  $timeout(resize, 0);
+                  $scope.initialHeight = $scope.initialHeight || element[0].style.height;
+				  $scope.$watch('ngModel', function(newValue) {
+                     resize();
+                     console.log('newValue: ' + newValue);
+                  });
+                  element.keyup(function () {
+                     resize();
+                     console.log('keyup');
+                  });
               }
-          };
+          }
       }
   ]);
   
-  app.controller('editorCtrl', ['$scope', '$showdown', '$http', '$cookies', function ($scope, $showdown, $http, $cookies) {
+  app.controller('editorCtrl', ['$scope', '$showdown', '$http', '$cookies', 'postText', function ($scope, $showdown, $http, $cookies, postText) {
   
     var hack = true;
   
+    $scope.postText = postText;
     $scope.versions = ['develop', 'master'];
     $scope.version = $cookies.get('version') || 'develop';
     $scope.showModal = false;

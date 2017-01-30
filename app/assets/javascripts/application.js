@@ -12,6 +12,7 @@
 //
 //= require jquery
 //= require jquery_ujs
+//= require jquery-ui
 //= require bootstrap-sprockets
 
 //
@@ -24,5 +25,8 @@
 //= require angular-pageslide-directive
 //= require angular-animate
 //= require angular-cookies
+//= require angular-file-upload
+//= require angular-bootstrap
 //= require ./templates/myApp.js
 //= require_tree ./templates
+

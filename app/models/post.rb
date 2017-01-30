@@ -4,10 +4,13 @@ class Post
   include Mongoid::Timestamps::Updated
   field :title, type: String
   field :body, type: String
-  belongs_to :user
+  field :vote, type: Integer, default: 0
+  belongs_to :owner, :class_name=>"User", :inverse_of=>:posts
   has_many :comments, dependent: :destroy
 
-  validates :title, :body, :user, :presence=> true
+  has_and_belongs_to_many :voted_users, :class_name=>"User", :inverse_of=>:voted_posts
+
+  validates :title, :body, :owner, :presence=> true
   validates :title, length: {:in => 15..150 }
   validates :body, length: {:in => 30..30000 }
 

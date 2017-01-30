@@ -17,7 +17,7 @@ end
 posts = []
 users.each do |user|
     10.times do |post_index|
-        post = Post.create!({:title=>user.username + '-title' + post_index.to_s + 'trailing string', :body=>'bbodybodybodybodybodybodybodybodybodybodybodybodybodybodybodybodybodybodybodybodybodybodybodybodybodybodybodyody', :user=>user});
+        post = Post.create!({:title=>user.username + '-title' + post_index.to_s + 'trailing string', :body=>'bbodybodybodybodybodybodybodybodybodybodybodybodybodybodybodybodybodybodybodybodybodybodybodybodybodybodybodyody', :owner=>user});
         posts.push(post)
     end
 end
@@ -27,7 +27,7 @@ comments = []
 users.each do |user|
     posts.each do |post|
         10.times do |comment_index|
-            comment = Comment.create!({:text=>post.title + '-comment' + comment_index.to_s, :post=>post, :user=>user});
+            comment = Comment.create!({:text=>post.title + '-comment' + comment_index.to_s, :post=>post, :owner=>user});
             comments.push(comment)
         end
     end
