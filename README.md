@@ -26,3 +26,6 @@ Things you may want to cover:
 # Generate mobile views for directory app/views recursively
 
 ./generateMobileViews.sh
+
+
+https://medium.com/for-the-public-benefit/deploying-rails-bower-on-heroku-3b4ca4908a59#.rurl7p5ik
