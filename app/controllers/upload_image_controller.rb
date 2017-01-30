@@ -8,7 +8,6 @@ class UploadImageController < ApplicationController
         current_user.post_images.push(image)
         current_user.update
         
-        byebug
         render json: image.postImage
     end
     def get_image
