@@ -1,11 +1,16 @@
-<div ng-controller="ModalDemoCtrl as $ctrl" class="modal-demo">
-    <script type="text/ng-template" id="myModalContent.html">
+<div ng-controller="ImageUploadCtrl as $ctrl">
+    <script type="text/ng-template" id="uploadImageContent.html">
         <div class="modal-header">
           <h3 class="modal-title" id="modal-title">Upload Image</h3>
         </div>
-<div  nv-file-drop="" uploader="uploader" filters="queueLimit, customFilter">
+        <div class="error_explanation">
+          <h2> {{$ctrl.notice}} </h2>
+        </div>
+<div  nv-file-drop="" uploader="uploader" filters="syncFilter">
         <div class="modal-body" id="modal-body" >
+          loading: {{loading}}
 	      <%= render 'upload_image_form' %>
+          <div ng-show="loading" class="sk-rotating-plane"></div>
         </div>
         <div class="modal-footer">
             <div>

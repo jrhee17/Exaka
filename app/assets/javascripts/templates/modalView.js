@@ -1,17 +1,17 @@
-angular.module('myApp').controller('ModalDemoCtrl', ['$uibModal', '$log', '$document', '$scope', 'postText',  function ($uibModal, $log, $document, $scope, postText) {
+angular.module('myApp').controller('ImageUploadCtrl', ['$uibModal', '$log', '$document', '$scope', 'postText',  function ($uibModal, $log, $document, $scope, postText) {
   var $ctrl = this;
+
 
   $ctrl.items = ['item1', 'item2', 'item3'];
 
   $ctrl.open = function (size, parentSelector) {
-    var parentElem = parentSelector ? 
-      angular.element($document[0].querySelector('.modal-demo ' + parentSelector)) : undefined;
+    var parentElem = parentSelector ? angular.element($document[0].querySelector('.modal-demo ' + parentSelector)) : undefined;
     var modalInstance = $uibModal.open({
       animation: true,
-      ariaLabelledBy: 'modal-title',
-      ariaDescribedBy: 'modal-body',
-      templateUrl: 'myModalContent.html',
-      controller: 'ModalInstanceCtrl',
+      ariaLabelledBy: 'modal-image-select-title',
+      ariaDescribedBy: 'modal-image-select-body',
+      templateUrl: 'uploadImageContent.html',
+      controller: 'ModalImageUploadCtrl',
       controllerAs: '$ctrl',
       size: size,
       resolve: {
@@ -22,26 +22,20 @@ angular.module('myApp').controller('ModalDemoCtrl', ['$uibModal', '$log', '$docu
     });
 
     modalInstance.result.then(function (result) {
-      console.log('modalInstance.result: ' + result);
       $ctrl.result = result;
       $scope.text = $scope.text + result;
       postText.appendText(result);
     }, function () {
-      $log.info('Modal dismissed at: ' + new Date());
     });
   };
 
-}]);
-
-// Please note that $uibModalInstance represents a modal window (instance) dependency.
-// It is not the same as the $uibModal service used above.
-
-angular.module('myApp').controller('ModalInstanceCtrl',['$scope', 'FileUploader', '$uibModalInstance', 'items', function ($scope, FileUploader, $uibModalInstance, items) {
+}]).controller('ModalImageUploadCtrl',['$scope', 'FileUploader', '$uibModalInstance', 'items', function ($scope, FileUploader, $uibModalInstance, items) {
   var $ctrl = this;
   $ctrl.items = items;
   $ctrl.selected = {
     item: $ctrl.items[0]
   };
+  $scope.loading = false;
 
   $ctrl.ok = function () {
     $uibModalInstance.close($ctrl.selected.item);
@@ -56,7 +50,7 @@ angular.module('myApp').controller('ModalInstanceCtrl',['$scope', 'FileUploader'
             headers: {
                 'X-CSRF-TOKEN' : csrf_token
             },
-            url: '/posts/upload_image'
+            url: '/posts/upload_image',
         });
 
         // FILTERS
@@ -66,7 +60,10 @@ angular.module('myApp').controller('ModalInstanceCtrl',['$scope', 'FileUploader'
             name: 'syncFilter',
             fn: function(item /*{File|FileLikeObject}*/, options) {
                 console.log('syncFilter');
-                return this.queue.length < 10;
+                if(this.queue.length > 0) {
+                    uploader.clearQueue();
+                }
+                return true;
             }
         });
       
@@ -92,37 +89,33 @@ angular.module('myApp').controller('ModalInstanceCtrl',['$scope', 'FileUploader'
         };
         uploader.onBeforeUploadItem = function(item) {
             console.info('onBeforeUploadItem', item);
+            $scope.loading = true;
         };
         uploader.onProgressItem = function(fileItem, progress) {
             console.info('onProgressItem', fileItem, progress);
         };
         uploader.onProgressAll = function(progress) {
             console.info('onProgressAll', progress);
-
-
         };
         uploader.onSuccessItem = function(fileItem, response, status, headers) {
             console.info('onSuccessItem', fileItem, response, status, headers);
+            const img_path = window.location.origin + response.postImage.url;
+            const md_img = "\n<img src=\"" + img_path + "\" width=\"100%\">\n";
+            $ctrl.result = md_img;
+            $uibModalInstance.close($ctrl.result);
         };
         uploader.onErrorItem = function(fileItem, response, status, headers) {
             console.info('onErrorItem', fileItem, response, status, headers);
+            $ctrl.notice = response.errors[0];
         };
         uploader.onCancelItem = function(fileItem, response, status, headers) {
             console.info('onCancelItem', fileItem, response, status, headers);
         };
         uploader.onCompleteItem = function(fileItem, response, status, headers) {
-            console.info('onCompleteItem', fileItem, response, status, headers);
-            console.log('response: ' + Object.keys(response));
-            const img_path = window.location.origin + '/' + response.postImage.url;
-            const md_img = "\n<img src=\"" + img_path + "\" width=\"100%\">\n";
-            $ctrl.result = md_img;
-            //const editor_element = document.getElementById("editor");
-
-            //insertAtCursor(editor_element, md_img);
         };
+
         uploader.onCompleteAll = function() {
-            console.info('onCompleteAll');
-            $uibModalInstance.close($ctrl.result);
+            $scope.loading = false;
         };
 
         console.info('uploader', uploader);

@@ -20,7 +20,8 @@ Rails.application.routes.draw do
 
   post 'upvote_post/:id', to: 'posts#upvote', as: 'upvote_post'
   post 'posts/upload_image', to: 'upload_image#post', as: 'upload_image_post'
-  get 'uploads/image/postImage/:id/:filename', to: 'upload_image#get_image', as: 'get_image_post'
+  get 'image/:id', to: 'upload_image#get_image', as: 'get_image_post'
+  get 'thumb/:id', to: 'upload_image#get_thumb_image', as: 'get_image_post_thumb'
 
 
   root 'posts#main'
