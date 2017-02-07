@@ -4,7 +4,6 @@ class UploadImageController < ApplicationController
       @image = Image.find(params[:id])
   end
     def post
-        byebug
         image = Image.new(
           :owner=>current_user,
         )

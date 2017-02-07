@@ -9,6 +9,7 @@
       <th>CreatedAt</th>
       <th>User name</th>
       <th>User email</th>
+      <th>Draft</th>
     </tr>
   </thead>
 
@@ -22,6 +23,7 @@
         <td><%= post.created_at %></td>
         <td><%= post.owner.username %></td>
         <td><%= post.owner.email %></td>
+        <td><%= post.draft %></td>
       </tr>
     <% end %>
   </tbody>

@@ -45,7 +45,7 @@
       }
   ]);
   
-  app.controller('editorCtrl', ['$scope', '$showdown', '$http', '$cookies', 'postText', function ($scope, $showdown, $http, $cookies, postText) {
+  app.controller('editorCtrl', ['$scope', '$showdown', '$http', '$cookies', 'postText', '$timeout', function ($scope, $showdown, $http, $cookies, postText, $timeout) {
   
     var hack = true;
   
@@ -160,10 +160,35 @@
       }
     }
 
+    var saveUpdates = function () {
+        console.log('saveUpdates(): ' + postText.text);
+        console.log('saveUpdates(): ' + Object.keys(postText));
+
+        var url = '/posts/autosave';
+        var dat = postText;
+        
+	    var csrf_token = document.querySelector('meta[name="csrf-token"]').getAttribute('content');
+
+        $http({
+            method: 'POST',
+            headers: {
+                'X-CSRF-TOKEN' : csrf_token
+            },
+            url: url,
+            data: dat
+        }).success(function () {});
+        
+        $scope.autosave = 'Saved!';
+    }
+
+    var timeout = null;
     $scope.cachePostInput = function () {
-        console.log('editorCtrl cacheInput(): ' + $scope.text);
-        var cacheText = $scope.text;
-        $cookies.put('postCacheText', $scope.text);
+        $scope.autosave = 'Save in progress....';
+        if(timeout) {
+            $timeout.cancel(timeout);
+        }
+        console.log('$timeout: ' + $timeout);
+        timeout = $timeout(saveUpdates, 1000);
     }
   
     $scope.toggleMenu = function () {

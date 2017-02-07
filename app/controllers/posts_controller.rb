@@ -12,7 +12,7 @@ class PostsController < ApplicationController
   end
 
   def main
-    @posts = Post.order_by(:created_at=>-1).limit(20)
+    @posts = Post.where(:draft=>false).order_by(:created_at=>-1).limit(20)
   end
 
   # GET /posts/1
@@ -23,11 +23,24 @@ class PostsController < ApplicationController
 
   # GET /posts/new
   def new
-    @post = Post.new
+    exists = Post.where({:draft => true, :owner => current_user}).exists?
+    if exists then
+        @post = Post.where({:draft => true, :owner => current_user}).first
+    else
+        @post = Post.new(:owner => current_user)
+        @post.save(validate: false)
+    end
   end
 
   # GET /posts/1/edit
   def edit
+  end
+
+  def autosave
+    draft = Post.where({:draft => true, :owner => current_user}).first
+    draft.title = params[:title] if params[:title]
+    draft.body = params[:body] if params[:body]
+    draft.save(validate: false)
   end
 
   # GET /posts/1/edit
@@ -50,6 +63,7 @@ class PostsController < ApplicationController
     @user = current_user
     @post = Post.new(post_params)
     @post.owner = @user
+    @post.draft = false;
 
     respond_to do |format|
       if @post.save
@@ -67,8 +81,11 @@ class PostsController < ApplicationController
   # PATCH/PUT /posts/1
   # PATCH/PUT /posts/1.json
   def update
+    @post.owner = current_user
     respond_to do |format|
       if @post.update(post_params)
+        @post.draft = false
+        @post.save
         format.html { redirect_to post_path(@post), notice: 'Post was successfully updated.' }
         format.mobile { redirect_to post_path(@post), notice: 'Post was successfully updated.' }
         format.json { render :show, status: :ok, location: @post }

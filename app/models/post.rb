@@ -5,6 +5,8 @@ class Post
   field :title, type: String
   field :body, type: String
   field :vote, type: Integer, default: 0
+  field :draft, type: Boolean, default: true
+
   belongs_to :owner, :class_name=>"User", :inverse_of=>:posts
   has_many :comments, dependent: :destroy
 
@@ -16,7 +18,7 @@ class Post
 
   def self.search(search, page)
       p 'self.search'
-      result = self.where(title: /#{search}/i).order_by(:created_at=>-1).paginate(:per_page => 10, :page => page)
+      result = self.where({title: /#{search}/i, :draft => false}).order_by(:created_at=>-1).paginate(:per_page => 10, :page => page)
       p 'result', result
       return result
   end

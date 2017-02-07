@@ -24,7 +24,10 @@ angular.module('myApp').controller('ImageUploadCtrl', ['$uibModal', '$log', '$do
     modalInstance.result.then(function (result) {
       $ctrl.result = result;
       $scope.text = $scope.text + result;
-      postText.appendText(result);
+      console.log('postText:' + postText);
+      console.log('postText:' + Object.keys(postText));
+      console.log('postText.body:' + postText.body);
+      postText.body = postText.body + result;
     }, function () {
     });
   };

@@ -26,11 +26,11 @@
     Result: {{ postText.text }}
     <button type="button" class="btn btn-default" ng-click="$ctrl.open()">Open me!</button>
 </div>
+
 <%= form_for post do |f| %>
   <% if post.errors.any? %>
     <div id="error_explanation">
       <h2><%= pluralize(post.errors.count, "error") %> prohibited this post from being saved:</h2>
-
       <ul>
       <% post.errors.full_messages.each do |message| %>
         <li><%= message %></li>
@@ -38,26 +38,23 @@
       </ul>
     </div>
   <% end %>
-
-
-  <div class="field">
-    <%= f.label :title %>
-    <%= f.text_field :title %>
+  
+  <div ng-controller="editorCtrl">
+      autosave: {{autosave}} <br/>
+      postText.text: {{postText.title}} <br/>
+      <input type="text" data-ng-model="postText.title" ng-init="postText.title = <%= @post.title.to_json %>" ng-change="cachePostInput()" >
+    <%= f.hidden_field :title, value: "{{postText.title}}" %>
   </div>
 
   <div>
     <div ng-controller="editorCtrl" squeeze>
+      {{autosave}}
       <div id="editor-wrapper" class="container">
-        <% if @post.persisted? %>
-          <textarea id="editor" data-ng-model="postText.text" elastic="postText.text" ng-init="text = <%= @post.body.to_json %>"></textarea>
-        <% else %>
-          New post
-          <textarea id="editor" data-ng-model="postText.text" elastic="postText.text" ng-change="cachePostInput()" cache-post-text></textarea>
-        <% end %>
-        <div id="preview" sd-model-to-html="postText.text"></div>
+        <textarea id="editor" data-ng-model="postText.body" elastic="postText.body" ng-init="postText.body = <%= @post.body.to_json %>" ng-change="cachePostInput()"></textarea>
+        <div id="preview" sd-model-to-html="postText.body"></div>
       </div>
       <div class="field">
-          <%= f.hidden_field :body, value: "{{postText.text}}" %>
+          <%= f.hidden_field :body, value: "{{postText.body}}" %>
       </div>
     </div>
   </div>

@@ -17,6 +17,7 @@ Rails.application.routes.draw do
   end
 
   get 'posts', to: 'posts#main'
+  post 'posts/autosave', to: 'posts#autosave', as: 'autosave_post'
 
   post 'upvote_post/:id', to: 'posts#upvote', as: 'upvote_post'
   post 'posts/upload_image', to: 'upload_image#post', as: 'upload_image_post'

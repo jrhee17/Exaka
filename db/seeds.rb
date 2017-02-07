@@ -17,7 +17,7 @@ end
 posts = []
 users.each do |user|
     10.times do |post_index|
-        post = Post.create!({:title=>user.username + '-title' + post_index.to_s + 'trailing string', :body=>'bbodybodybodybodybodybodybodybodybodybodybodybodybodybodybodybodybodybodybodybodybodybodybodybodybodybodybodyody', :owner=>user});
+        post = Post.create!({:title=>user.username + '-title' + post_index.to_s + 'trailing string', :body=>'bbodybodybodybodybodybodybodybodybodybodybodybodybodybodybodybodybodybodybodybodybodybodybodybodybodybodybodyody', :owner=>user, :draft=>false});
         posts.push(post)
     end
 end
