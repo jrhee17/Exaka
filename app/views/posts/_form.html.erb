@@ -50,8 +50,8 @@
     <div ng-controller="editorCtrl" squeeze>
       {{autosave}}
       <div id="editor-wrapper" class="container">
-        <textarea id="editor" data-ng-model="postText.body" elastic="postText.body" ng-init="postText.body = <%= @post.body.to_json %>" ng-change="cachePostInput()"></textarea>
-        <div id="preview" sd-model-to-html="postText.body"></div>
+        <textarea id="editor" class="col-md-6" style="height: 400px;" data-ng-model="postText.body" ng-init="postText.body = <%= @post.body.to_json %>" ng-change="cachePostInput()"></textarea>
+        <div id="preview" class="col-md-6" style="overflow:scroll; height:400px;" sd-model-to-html="postText.body"></div>
       </div>
       <div class="field">
           <%= f.hidden_field :body, value: "{{postText.body}}" %>

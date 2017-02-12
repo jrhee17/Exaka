@@ -80,7 +80,7 @@
       'prefixHeaderId': false,
       'disableForced4SpacesIndentedSublists': false,
       'ghCompatibleHeaderId': true,
-      'smartIndentationFix': false
+      'smartIndentationFix': true
     };
     var numOpts = {
       'headerLevelStart': 3

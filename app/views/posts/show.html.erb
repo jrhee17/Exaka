@@ -32,9 +32,9 @@
 <p>
   <strong>Body:</strong>
   <div>
-    <div ng=controller="editorCtrl">
-      <div id="editor-wrapper" class="container">
-          <div id="preview" sd-model-to-html="<%= @post.body.to_json %>"></div>
+    <div ng-controller="editorCtrl">
+      <div class="container">
+          <div markdown-to-html="<%= @post.body.to_json %>"></div>
       </div>
     </div>
   </div>
