@@ -26,7 +26,7 @@
           New post
           <textarea id="editor" data-ng-model="text" elastic ng-change="cachePostInput()" cache-post-text></textarea>
         <% end %>
-        <div id="preview" sd-model-to-html="text"></div>
+        <div id="preview" markdown-to-html="text"></div>
       </div>
       <div class="field">
           <%= f.hidden_field :body, value: "{{text}}" %>

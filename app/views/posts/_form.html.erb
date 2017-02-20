@@ -1,66 +1,65 @@
-<div ng-controller="ImageUploadCtrl as $ctrl">
-    <script type="text/ng-template" id="uploadImageContent.html">
-        <div class="modal-header">
-          <h3 class="modal-title" id="modal-title">Upload Image</h3>
-        </div>
-        <div class="error_explanation">
-          <h2> {{$ctrl.notice}} </h2>
-        </div>
-<div  nv-file-drop="" uploader="uploader" filters="syncFilter">
+<div ng-controller="editorCtrl as $ctrl">
+  <script type="text/ng-template" id="uploadImageContent.html">
+      <div class="modal-header">
+        <h3 class="modal-title" id="modal-title">Upload Image</h3>
+      </div>
+      <div class="error_explanation">
+        <h2> {{$ctrl.notice}} </h2>
+      </div>
+      <div  nv-file-drop="" uploader="uploader" filters="syncFilter">
         <div class="modal-body" id="modal-body" >
           loading: {{loading}}
-	      <%= render 'upload_image_form' %>
+        <%= render 'upload_image_form' %>
           <div ng-show="loading" class="sk-rotating-plane"></div>
         </div>
         <div class="modal-footer">
-            <div>
-              <button ng-if="uploader.queue.length > 0" type="button" class="btn btn-primary" ng-click="uploader.queue[0].upload()" ng-disabled="item.isReady || item.isUploading || item.isSuccess">
-                  Upload
-              </button>
-              <button class="btn btn-warning" type="button" ng-click="$ctrl.cancel()">Cancel</button>
-            </div>
+          <div>
+            <button ng-if="uploader.queue.length > 0" type="button" class="btn btn-primary" ng-click="uploader.queue[0].upload()" ng-disabled="item.isReady || item.isUploading || item.isSuccess">
+                Upload
+            </button>
+            <button class="btn btn-warning" type="button" ng-click="$ctrl.cancel()">Cancel</button>
+          </div>
         </div>
+      </div>
+  </script>
+
+  <button type="button" class="btn btn-default" ng-click="$ctrl.open()">Open me!</button>
+
+
+  <%= form_for post do |f| %>
+    <% if post.errors.any? %>
+      <div id="error_explanation">
+        <h2><%= pluralize(post.errors.count, "error") %> prohibited this post from being saved:</h2>
+        <ul>
+        <% post.errors.full_messages.each do |message| %>
+          <li><%= message %></li>
+        <% end %>
+        </ul>
+      </div>
+    <% end %>
+
+
+    autosave: {{autosave}} <br/>
+    postText.title: {{postText.title}} <br/>
+    <input type="text" data-ng-model="postText.title" ng-init="postText.title = <%= @post.title.to_json %>" ng-change="cachePostInput()" >
+    <%= f.hidden_field :title, value: "{{postText.title}}" %>
+
+    <div>
+      <button ng-click="$ctrl.togglePreview()"></button>
+        {{autosave}}
+        previewVisible: {{previewVisible}}
+        <div id="editor-wrapper" class="container">
+          <textarea id="editor" class="col-md-6" style="height: 400px;" data-ng-model="postText.body" ng-init="postText.body = <%= @post.body.to_json %>" ng-change="cachePostInput()"></textarea>
+          <div id="preview" previewVisible="{{previewVisible}}" class="col-md-6" style="overflow:scroll; height:400px;" markdown-to-html="postText.body"></div>
         </div>
-    </script>
+        <div class="field">
+            <%= f.hidden_field :body, value: "{{postText.body}}" %>
+        </div>
+    </div>
 
-    Result: {{ postText.text }}
-    <button type="button" class="btn btn-default" ng-click="$ctrl.open()">Open me!</button>
-</div>
 
-<%= form_for post do |f| %>
-  <% if post.errors.any? %>
-    <div id="error_explanation">
-      <h2><%= pluralize(post.errors.count, "error") %> prohibited this post from being saved:</h2>
-      <ul>
-      <% post.errors.full_messages.each do |message| %>
-        <li><%= message %></li>
-      <% end %>
-      </ul>
+    <div class="actions">
+      <%= f.submit %>
     </div>
   <% end %>
-  
-  <div ng-controller="editorCtrl">
-      autosave: {{autosave}} <br/>
-      postText.text: {{postText.title}} <br/>
-      <input type="text" data-ng-model="postText.title" ng-init="postText.title = <%= @post.title.to_json %>" ng-change="cachePostInput()" >
-    <%= f.hidden_field :title, value: "{{postText.title}}" %>
-  </div>
-
-  <div>
-    <div ng-controller="editorCtrl" squeeze>
-      {{autosave}}
-      <div id="editor-wrapper" class="container">
-        <textarea id="editor" class="col-md-6" style="height: 400px;" data-ng-model="postText.body" ng-init="postText.body = <%= @post.body.to_json %>" ng-change="cachePostInput()"></textarea>
-        <div id="preview" class="col-md-6" style="overflow:scroll; height:400px;" sd-model-to-html="postText.body"></div>
-      </div>
-      <div class="field">
-          <%= f.hidden_field :body, value: "{{postText.body}}" %>
-      </div>
-    </div>
-  </div>
-
-
-  <div class="actions">
-    <%= f.submit %>
-  </div>
-<% end %>
+</div>

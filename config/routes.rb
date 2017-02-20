@@ -24,7 +24,6 @@ Rails.application.routes.draw do
   get 'image/:id', to: 'upload_image#get_image', as: 'get_image_post'
   get 'thumb/:id', to: 'upload_image#get_thumb_image', as: 'get_image_post_thumb'
 
-
   root 'posts#main'
   # For details on the DSL available within this file, see http://guides.rubyonrails.org/routing.html
 end

@@ -15,7 +15,7 @@
   <strong>Body:</strong>
   <div ng=controller="editorCtrl">
     <div id="editor-wrapper" class="container">
-        <div id="preview" sd-model-to-html="<%= @post.body.to_json %>"></div>
+        <div id="preview" markdown-to-html="<%= @post.body.to_json %>"></div>
     </div>
   </div>
 </p>
